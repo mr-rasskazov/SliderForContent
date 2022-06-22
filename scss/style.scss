@@ -1,0 +1,337 @@
+/*-------------------------------
+---------- NULL STYLES ----------
+-------------------------------*/
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+  }
+  
+  /*-------------------------------
+  ----------- VARIABLES -----------
+  -------------------------------*/
+  
+  $black: #000000;
+  $dark-gray: #222222;
+  $gray: #3a3a3a;
+  $light-gray: #7e7e7e;
+  $white: #ffffff;
+  $dark-red: #660e0e;
+  $red: #991111;
+  
+  /*-------------------------------
+  ------------ MIXINS -------------
+  -------------------------------*/
+  
+  @mixin transition {
+    transition: all linear 100ms;
+  }
+  
+  @mixin title-mb {
+    margin-bottom: 30px;
+  
+    @media screen and (min-width: 1000px) {
+      margin-bottom: 36px;
+  
+      @media (-webkit-min-device-pixel-ratio: 1.5) {
+        margin-bottom: 28px;
+      }
+    }
+  
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  @mixin content-mb {
+    margin-bottom: 16px;
+  
+    @media screen and (min-width: 1000px) {
+      margin-bottom: 18px;
+  
+      @media (-webkit-min-device-pixel-ratio: 1.5) {
+        margin-bottom: 15px;
+      }
+    }
+  
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  @mixin title {
+    font-size: 28px;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+    @include title-mb;
+  
+    @media screen and (min-width: 1000px) {
+      font-size: 34px;
+  
+      @media (-webkit-min-device-pixel-ratio: 1.25) {
+        font-size: 30px;
+      }
+  
+      @media (-webkit-min-device-pixel-ratio: 1.5) {
+        font-size: 26px;
+      }
+    }
+  }
+  
+  @mixin subtitle {
+    font-size: 22px;
+    font-weight: 600;
+    @include content-mb;
+  
+    @media screen and (min-width: 1000px) {
+      font-size: 25px;
+  
+      @media (-webkit-min-device-pixel-ratio: 1.25) {
+        font-size: 23px;
+      }
+  
+      @media (-webkit-min-device-pixel-ratio: 1.5) {
+        font-size: 20px;
+      }
+    }
+  }
+  
+  @mixin block-pt {
+    padding-top: 34px;
+  
+    @media screen and (min-width: 1000px) {
+      padding-top: 40px;
+  
+      @media (-webkit-min-device-pixel-ratio: 1.25) {
+        padding-top: 34px;
+      }
+  
+      @media (-webkit-min-device-pixel-ratio: 1.5) {
+        padding-top: 32px;
+      }
+    }
+  }
+  
+  @mixin block-pb {
+    padding-bottom: 50px;
+  
+    @media screen and (min-width: 1000px) {
+      padding-bottom: 60px;
+  
+      @media (-webkit-min-device-pixel-ratio: 1.25) {
+        padding-bottom: 54px;
+      }
+  
+      @media (-webkit-min-device-pixel-ratio: 1.5) {
+        padding-bottom: 48px;
+      }
+    }
+  }
+  
+  @mixin block-pl-pr {
+    padding-right: 28px;
+    padding-left: 28px;
+  
+    @media screen and (min-width: 1000px) {
+      padding-right: 32px;
+      padding-left: 32px;
+  
+      @media (-webkit-min-device-pixel-ratio: 1.25) {
+        padding-right: 30px;
+        padding-left: 30px;
+      }
+  
+      @media (-webkit-min-device-pixel-ratio: 1.5) {
+        padding-right: 26px;
+        padding-left: 26px;
+      }
+    }
+  }
+  
+  /*-------------------------------
+  --------- COMMON STYLES ---------
+  -------------------------------*/
+  
+  h2,
+  h3,
+  p {
+    color: $white;
+  }
+  
+  p {
+    @include content-mb;
+  
+    &.mb-null {
+      margin-bottom: 0;
+    }
+  }
+  
+  /*-------------------------------
+  --------- SLIDER STYLES ---------
+  -------------------------------*/
+  
+  .slider {
+    box-sizing: border-box;
+    width: 100%;
+    @include block-pb;
+    @include block-pt;
+    @include block-pl-pr;
+    background-color: $black;
+  
+    h2 {
+      @include title;
+    }
+  
+    &__list {
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+  
+      @media screen and (min-width: 700px) {
+        @include block-pl-pr;
+      }
+  
+      &.disabled {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+    }
+  
+    &__arrow {
+      display: none;
+  
+      @media screen and (min-width: 700px) {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        z-index: 1;
+      }
+  
+      &.disabled {
+        display: none;
+      }
+  
+      span {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        @include transition;
+      }
+  
+      &_next {
+        right: 0;
+        justify-content: end;
+  
+        span {
+          border-width: 20px 0 20px 20px;
+          border-color: transparent transparent transparent $gray;
+        }
+  
+        &:hover.mouse {
+          cursor: pointer;
+  
+          span {
+            border-color: transparent transparent transparent $red;
+          }
+        }
+  
+        &:active.mouse {
+          span {
+            border-color: transparent transparent transparent $dark-red;
+          }
+        }
+      }
+  
+      &_prev {
+        left: 0;
+        justify-content: start;
+  
+        span {
+          border-width: 20px 20px 20px 0;
+          border-color: transparent $gray transparent transparent;
+        }
+  
+        &:hover.mouse {
+          cursor: pointer;
+  
+          span {
+            border-color: transparent $red transparent transparent;
+          }
+        }
+  
+        &:active.mouse {
+          span {
+            border-color: transparent $dark-red transparent transparent;
+          }
+        }
+      }
+    }
+  }
+  
+  /*-------------------------------
+  ------- SLIDE-ITEM STYLES -------
+  -------------------------------*/
+  
+  .slide-item {
+    position: relative;
+    display: none;
+    opacity: 0;
+    width: 100%;
+    @include block-pt;
+    @include block-pb;
+    @include block-pl-pr;
+  
+    &__content {
+      overflow: hidden;
+      @include content-mb;
+    }
+  
+    &.active {
+      @include transition;
+      display: block;
+      opacity: 1;
+      background-color: $dark-gray;
+    }
+  
+    h3 {
+      @include subtitle;
+    }
+  
+    &__more-toggler {
+      display: flex;
+      justify-content: center;
+  
+      p {
+        background-color: $black;
+        padding: 17px 30px;
+        text-align: center;
+        @include transition;
+        cursor: pointer;
+  
+        @media screen and (min-width: 1000px) {
+          padding: 20px 34px;
+  
+          @media (-webkit-min-device-pixel-ratio: 1.25) {
+            padding: 17px 30px;
+          }
+  
+          @media (-webkit-min-device-pixel-ratio: 1.5) {
+            padding: 15px 28px;
+          }
+        }
+  
+        &:hover.mouse {
+          color: $red;
+        }
+  
+        &:active.mouse {
+          color: $dark-red;
+        }
+      }
+    }
+  }
+  
